@@ -1,0 +1,9 @@
+*env
+*.pem
+*.terraform
+*__pycache__*
+
+*.so
+*.manifest
+*.spec
+
