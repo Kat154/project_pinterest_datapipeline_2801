@@ -22,9 +22,15 @@ class AWS_DB_Connector:
         # return connection
         return engine
 
-    def execute_query(self,query_to_be_executed = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';"):
+    def execute_create_table_query(self,query_to_be_executed = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';"):
+        engine = self.connect_to_db()
+        with engine.connect() as connection:
+            query_result = connection.execute(text(query_to_be_executed))
+            connection.commit()
+            return query_result
+
+    def execute_select_query(self,query_to_be_executed = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';" ):
         engine = self.connect_to_db()
         with engine.connect() as connection:
             query_result = connection.execute(text(query_to_be_executed))
             return query_result
-
